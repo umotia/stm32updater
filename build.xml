@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project>
+	<property name="product-name" value="UMotia"/>
 	<property name="one-jar.dist.dir" value="c:/one-jar-ant"/>
 	<property name="plugin.dir" value="C:\eclipse\plugins"/>
 	<import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="true" />
     <path id="classpath">
-        <fileset dir="lib" includes="**/*.jar"/>
+        <fileset dir="plugins" includes="**/*.jar"/>
     	<fileset dir="C:\eclipse\plugins" includes="**/*.jar"/>
     </path>
 	  <target name="clean">
@@ -18,13 +19,13 @@
 
 	    <target name="jar">
 	        <mkdir dir="build"/>
-	    	<one-jar destfile="build/umotia_win64.jar" onejarmainclass="com.umotia.updater.Umotia">
+	    	<one-jar destfile="build/${product-name}_win64.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 	        	<main>
 	        		<fileset dir="build/classes"/>
-	        		<fileset file="jars/javax.usb.properties"/>
+	        		<fileset file="src/javax.usb.properties"/>
 	        	</main>
 	        	<lib>
-	        		<fileset file="lib/swt_win64.jar"/>
+	        		<fileset file="plugins/swt_win64.jar"/>
 	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
 	        		<fileset file="jars/usb4java-1.2.0.jar"/>
 	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
@@ -36,13 +37,13 @@
 	        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
 	        	</lib>
 	        </one-jar>
-		    <one-jar destfile="build/umotia_linux64.jar" onejarmainclass="com.umotia.updater.Umotia">
+		    <one-jar destfile="build/${product-name}_linux64.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 		        	<main>
 		        		<fileset dir="build/classes"/>
 		        		<fileset file="jars/javax.usb.properties"/>
 		        	</main>
 		        	<lib>
-		        		<fileset file="lib/swt_linux64.jar"/>
+		        		<fileset file="plugins/swt_linux64.jar"/>
 		        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
 		        		<fileset file="jars/usb4java-1.2.0.jar"/>
 		        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
@@ -54,13 +55,13 @@
 		        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
 		        	</lib>
 		    </one-jar>
-	        <one-jar destfile="build/umotia_win32.jar" onejarmainclass="com.umotia.updater.Umotia">
+	        <one-jar destfile="build/${product-name}_win32.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 	        	<main>
 	        		<fileset dir="build/classes"/>
 	        		<fileset file="jars/javax.usb.properties"/>
 	        	</main>
 	        	<lib>
-	        		<fileset file="lib/swt_win32.jar"/>
+	        		<fileset file="plugins/swt_win32.jar"/>
 	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
 	        		<fileset file="jars/usb4java-1.2.0.jar"/>
 	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
@@ -72,13 +73,13 @@
 	        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
 	        	</lib>
 	        </one-jar>
-	        <one-jar destfile="build/umotia_macosx64.jar" onejarmainclass="com.umotia.updater.Umotia">
+	        <one-jar destfile="build/${product-name}_macosx64.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 	        	<main>
 	        		<fileset dir="build/classes"/>
 	        		<fileset file="jars/javax.usb.properties"/>
 	        	</main>
 	        	<lib>
-	        		<fileset file="lib/swt_macosx.jar"/>
+	        		<fileset file="plugins/swt_macosx.jar"/>
 	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
 	        		<fileset file="jars/usb4java-1.2.0.jar"/>
 	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>

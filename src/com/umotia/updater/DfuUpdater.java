@@ -117,12 +117,12 @@ public class DfuUpdater {
 						Stm32Updater.LOGGER.info(memEntry.toString());
 						throw new Exception("Flash file has too many blocks");
 					}
-					progressBar.setMaximum(numBlocks);
+					progressBar.setMaximum(numBlocks+1);
 					for (int b = 0; b < numBlocks; b++) {
 						for (int i = 0; i < data.length; i++) {
 							data[i] = element.data[b * memEntry.pageSize + i];
 						}
-						progressBar.setSelection(b);
+						progressBar.setSelection(b+1);
 						dfu.dnloadWrite((short) (b + 2), data);
 					}
 					if (leftover > 0) {
@@ -132,7 +132,7 @@ public class DfuUpdater {
 									* memEntry.pageSize + i];
 						}
 						dfu.dnloadWrite((short) (numBlocks + 2), data);
-						progressBar.setSelection(numBlocks);
+						progressBar.setSelection(numBlocks+1);
 					}
 					imageNum++;
 				}
