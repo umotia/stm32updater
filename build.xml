@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<property name="one-jar.dist.dir" value="c:/one-jar-ant"/>
+	<property name="plugin.dir" value="C:\eclipse\plugins"/>
+	<import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="true" />
+    <path id="classpath">
+        <fileset dir="lib" includes="**/*.jar"/>
+    	<fileset dir="C:\eclipse\plugins" includes="**/*.jar"/>
+    </path>
+	  <target name="clean">
+	        <delete dir="build"/>
+	    </target>
+
+	    <target name="compile">
+	        <mkdir dir="build/classes"/>
+	    	<javac srcdir="src" destdir="build/classes" classpathref="classpath"/>
+	    </target>
+
+	    <target name="jar">
+	        <mkdir dir="build"/>
+	    	<one-jar destfile="build/umotia_win64.jar" onejarmainclass="com.umotia.updater.Umotia">
+	        	<main>
+	        		<fileset dir="build/classes"/>
+	        		<fileset file="jars/javax.usb.properties"/>
+	        	</main>
+	        	<lib>
+	        		<fileset file="lib/swt_win64.jar"/>
+	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
+	        		<fileset file="jars/usb4java-1.2.0.jar"/>
+	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
+	        		<fileset file="jars/usb-api-1.0.2.jar"/>
+	        		<fileset file="jars/libusb4java-1.2.0-windows-x86_64.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.jface_3.10.2.v20141021-1035.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.runtime_3.10.0.v20140318-2214.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.commands_3.6.100.v20140528-1422.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
+	        	</lib>
+	        </one-jar>
+		    <one-jar destfile="build/umotia_linux64.jar" onejarmainclass="com.umotia.updater.Umotia">
+		        	<main>
+		        		<fileset dir="build/classes"/>
+		        		<fileset file="jars/javax.usb.properties"/>
+		        	</main>
+		        	<lib>
+		        		<fileset file="lib/swt_linux64.jar"/>
+		        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
+		        		<fileset file="jars/usb4java-1.2.0.jar"/>
+		        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
+		        		<fileset file="jars/usb-api-1.0.2.jar"/>
+		        		<fileset file="jars/libusb4java-1.2.0-windows-x86_64.jar"/>
+		        		<fileset file="${plugin.dir}/org.eclipse.jface_3.10.2.v20141021-1035.jar"/>
+		        		<fileset file="${plugin.dir}/org.eclipse.core.runtime_3.10.0.v20140318-2214.jar"/>
+		        		<fileset file="${plugin.dir}/org.eclipse.core.commands_3.6.100.v20140528-1422.jar"/>
+		        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
+		        	</lib>
+		    </one-jar>
+	        <one-jar destfile="build/umotia_win32.jar" onejarmainclass="com.umotia.updater.Umotia">
+	        	<main>
+	        		<fileset dir="build/classes"/>
+	        		<fileset file="jars/javax.usb.properties"/>
+	        	</main>
+	        	<lib>
+	        		<fileset file="lib/swt_win32.jar"/>
+	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
+	        		<fileset file="jars/usb4java-1.2.0.jar"/>
+	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
+	        		<fileset file="jars/usb-api-1.0.2.jar"/>
+	        		<fileset file="jars/libusb4java-1.2.0-windows-x86_64.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.jface_3.10.2.v20141021-1035.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.runtime_3.10.0.v20140318-2214.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.commands_3.6.100.v20140528-1422.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
+	        	</lib>
+	        </one-jar>
+	        <one-jar destfile="build/umotia_macosx64.jar" onejarmainclass="com.umotia.updater.Umotia">
+	        	<main>
+	        		<fileset dir="build/classes"/>
+	        		<fileset file="jars/javax.usb.properties"/>
+	        	</main>
+	        	<lib>
+	        		<fileset file="lib/swt_macosx.jar"/>
+	        		<fileset file="jars/commons-lang3-3.2.1.jar"/>
+	        		<fileset file="jars/usb4java-1.2.0.jar"/>
+	        		<fileset file="jars/usb4java-javax-1.2.0.jar"/>
+	        		<fileset file="jars/usb-api-1.0.2.jar"/>
+	        		<fileset file="jars/libusb4java-1.2.0-windows-x86_64.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.jface_3.10.2.v20141021-1035.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.runtime_3.10.0.v20140318-2214.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.core.commands_3.6.100.v20140528-1422.jar"/>
+	        		<fileset file="${plugin.dir}/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
+	        	</lib>
+	        </one-jar>
+	    </target>
+</project>
