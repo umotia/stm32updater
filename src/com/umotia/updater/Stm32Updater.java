@@ -28,7 +28,7 @@ public class Stm32Updater {
 	private static Text text;
 	public static ProgressBar progressBar = null;
 	public static Display display = null;
-	public static Shell shell = null;
+	private static Shell shell;
 	public static Button btnUpdate = null;
 	public static Label lblProgress = null;
 	public final static Logger LOGGER = Logger.getLogger(Stm32Updater.class
@@ -63,8 +63,8 @@ public class Stm32Updater {
 
 		display = Display.getDefault();
 		shell = new Shell();
-		shell.setSize(450, 168);
-		shell.setText(productName + " Updater");
+		shell.setSize(458, 193);
+		shell.setText(productName);
 		Button btnBrowse = new Button(shell, SWT.NONE);
 		btnBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -79,6 +79,7 @@ public class Stm32Updater {
 					DfuseFile file = new DfuseFile();
 					try {
 						file.readFile(filename);
+						lblProgress.setText("Click Do Update button to begin update");
 						btnUpdate.setEnabled(true);
 					} catch (EOFException e1) {
 						String msg = "File is not valid and could be empty";
@@ -92,19 +93,20 @@ public class Stm32Updater {
 				}
 			}
 		});
-		btnBrowse.setBounds(308, 10, 75, 25);
+		btnBrowse.setBounds(338, 46, 75, 25);
 		btnBrowse.setText("Browse...");
 
 		text = new Text(shell, SWT.BORDER);
 		text.setEditable(false);
-		text.setBounds(85, 12, 217, 21);
+		text.setBounds(85, 48, 247, 21);
 
 		Label lblUpdateFile = new Label(shell, SWT.NONE);
-		lblUpdateFile.setBounds(10, 15, 69, 15);
+		lblUpdateFile.setAlignment(SWT.RIGHT);
+		lblUpdateFile.setBounds(10, 51, 69, 15);
 		lblUpdateFile.setText("Update File:");
 
 		progressBar = new ProgressBar(shell, SWT.NONE);
-		progressBar.setBounds(82, 51, 217, 17);
+		progressBar.setBounds(85, 84, 247, 17);
 
 		btnUpdate = new Button(shell, SWT.NONE);
 		btnUpdate.addSelectionListener(new SelectionAdapter() {
@@ -126,11 +128,12 @@ public class Stm32Updater {
 				btnUpdate.setEnabled(true);
 			}
 		});
-		btnUpdate.setBounds(111, 95, 108, 25);
-		btnUpdate.setText("Update " + productName);
+		btnUpdate.setBounds(338, 81, 75, 25);
+		btnUpdate.setText("Do Update");
 		btnUpdate.setEnabled(false);
 		lblProgress = new Label(shell, SWT.NONE);
-		lblProgress.setBounds(316, 53, 108, 15);
+		lblProgress.setText("Use Browse button to select update file");
+		lblProgress.setBounds(85, 15, 247, 15);
 
 		Button btnExit = new Button(shell, SWT.NONE);
 		btnExit.addSelectionListener(new SelectionAdapter() {
@@ -139,13 +142,13 @@ public class Stm32Updater {
 				shell.close();
 			}
 		});
-		btnExit.setBounds(240, 95, 75, 25);
+		btnExit.setBounds(179, 120, 75, 25);
 		btnExit.setText("Exit");
-
-		Label lblProgress_1 = new Label(shell, SWT.NONE);
-		lblProgress_1.setAlignment(SWT.RIGHT);
-		lblProgress_1.setText("Progress:");
-		lblProgress_1.setBounds(0, 53, 69, 15);
+		
+		Label lblProgress_2 = new Label(shell, SWT.NONE);
+		lblProgress_2.setText("Progress:");
+		lblProgress_2.setAlignment(SWT.RIGHT);
+		lblProgress_2.setBounds(10, 86, 69, 15);
 
 		shell.open();
 		shell.layout();
