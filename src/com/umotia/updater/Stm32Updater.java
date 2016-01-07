@@ -7,6 +7,8 @@ package com.umotia.updater;
 
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -33,7 +35,7 @@ public class Stm32Updater {
 	public static Label lblProgress = null;
 	public final static Logger LOGGER = Logger.getLogger(Stm32Updater.class
 			.getName());
-	public final static String productName = "UMotia";
+	public static ResourceBundle messages;
 
 	/**
 	 * Launch the application.b
@@ -41,30 +43,18 @@ public class Stm32Updater {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// Setup logger
-		LOGGER.setLevel(Level.CONFIG);
-		LOGGER.setUseParentHandlers(false);
-		ConsoleHandler logConsole = new ConsoleHandler();
-		logConsole.setLevel(Level.CONFIG);
-		LOGGER.addHandler(logConsole);
-		MyLogFormatter formatter = new MyLogFormatter();
-		logConsole.setFormatter(formatter);
+		Locale currentLocale = new Locale("en", "US");
+		messages = ResourceBundle.getBundle("MessagesBundle", currentLocale);
 
-		try {
-			FileHandler logFile = new FileHandler(productName + ".%u.%g.log",
-					200000, 2, true);
-			LOGGER.addHandler(logFile);
-			logFile.setFormatter(formatter);
-			logFile.setLevel(Level.CONFIG);
-		} catch (IOException e) {
-			System.err.println("Unable to create logfile");
-			System.exit(3);
-		}
+		setupLogging();
+		createDialog();
+	}
 
+	public static void createDialog() {
 		display = Display.getDefault();
 		shell = new Shell();
 		shell.setSize(458, 193);
-		shell.setText(productName);
+		shell.setText(messages.getString("product_name"));
 		Button btnBrowse = new Button(shell, SWT.NONE);
 		btnBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -79,22 +69,24 @@ public class Stm32Updater {
 					DfuseFile file = new DfuseFile();
 					try {
 						file.readFile(filename);
-						lblProgress.setText("Click Do Update button to begin update");
+						lblProgress.setText(messages.getString("text_click_update"));
 						btnUpdate.setEnabled(true);
 					} catch (EOFException e1) {
-						String msg = "File is not valid and could be empty";
-						LOGGER.severe(msg);
-						MessageDialog.openError(null, "Update File Error", msg);
+						LOGGER.severe(messages.getString("message_file_not_valid"));
+						MessageDialog.openError(null,
+								messages.getString("title_file_error"),
+								messages.getString("message_file_not_valid"));
 					} catch (Exception e2) {
 						LOGGER.severe(e2.getMessage());
-						MessageDialog.openError(null, "Update File Error",
+						MessageDialog.openError(null,
+								messages.getString("title_file_error"),
 								e2.getMessage());
 					}
 				}
 			}
 		});
 		btnBrowse.setBounds(338, 46, 75, 25);
-		btnBrowse.setText("Browse...");
+		btnBrowse.setText(messages.getString("button_browse"));
 
 		text = new Text(shell, SWT.BORDER);
 		text.setEditable(false);
@@ -103,7 +95,7 @@ public class Stm32Updater {
 		Label lblUpdateFile = new Label(shell, SWT.NONE);
 		lblUpdateFile.setAlignment(SWT.RIGHT);
 		lblUpdateFile.setBounds(10, 51, 69, 15);
-		lblUpdateFile.setText("Update File:");
+		lblUpdateFile.setText(messages.getString("label_update_file"));
 
 		progressBar = new ProgressBar(shell, SWT.NONE);
 		progressBar.setBounds(85, 84, 247, 17);
@@ -132,7 +124,7 @@ public class Stm32Updater {
 		btnUpdate.setText("Do Update");
 		btnUpdate.setEnabled(false);
 		lblProgress = new Label(shell, SWT.NONE);
-		lblProgress.setText("Use Browse button to select update file");
+		lblProgress.setText(messages.getString("text_click_browse"));
 		lblProgress.setBounds(85, 15, 247, 15);
 
 		Button btnExit = new Button(shell, SWT.NONE);
@@ -144,9 +136,9 @@ public class Stm32Updater {
 		});
 		btnExit.setBounds(179, 120, 75, 25);
 		btnExit.setText("Exit");
-		
+
 		Label lblProgress_2 = new Label(shell, SWT.NONE);
-		lblProgress_2.setText("Progress:");
+		lblProgress_2.setText(messages.getString("label_progress"));
 		lblProgress_2.setAlignment(SWT.RIGHT);
 		lblProgress_2.setBounds(10, 86, 69, 15);
 
@@ -156,6 +148,28 @@ public class Stm32Updater {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
+		}
+	}
+
+	public static void setupLogging() {
+		LOGGER.setLevel(Level.CONFIG);
+		LOGGER.setUseParentHandlers(false);
+		ConsoleHandler logConsole = new ConsoleHandler();
+		logConsole.setLevel(Level.CONFIG);
+		LOGGER.addHandler(logConsole);
+		MyLogFormatter formatter = new MyLogFormatter();
+		logConsole.setFormatter(formatter);
+
+		try {
+			FileHandler logFile = new FileHandler(
+					messages.getString("product_name") + ".%u.%g.log", 200000,
+					2, true);
+			LOGGER.addHandler(logFile);
+			logFile.setFormatter(formatter);
+			logFile.setLevel(Level.CONFIG);
+		} catch (IOException e) {
+			System.err.println(messages.getString("message_log_error"));
+			System.exit(3);
 		}
 	}
 }

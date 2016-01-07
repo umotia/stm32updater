@@ -23,6 +23,7 @@
 	        	<main>
 	        		<fileset dir="build/classes"/>
 	        		<fileset file="src/javax.usb.properties"/>
+	        		<fileset file="src/MessagesBundle.properties"/>
 	        	</main>
 	        	<lib>
 	        		<fileset file="plugins/swt_win64.jar"/>
@@ -40,7 +41,8 @@
 		    <one-jar destfile="build/${product-name}_linux64.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 		        	<main>
 		        		<fileset dir="build/classes"/>
-		        		<fileset file="jars/javax.usb.properties"/>
+		        		<fileset file="src/javax.usb.properties"/>
+		        		<fileset file="src/MessagesBundle.properties"/>
 		        	</main>
 		        	<lib>
 		        		<fileset file="plugins/swt_linux64.jar"/>
@@ -58,7 +60,8 @@
 	        <one-jar destfile="build/${product-name}_win32.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 	        	<main>
 	        		<fileset dir="build/classes"/>
-	        		<fileset file="jars/javax.usb.properties"/>
+	        		<fileset file="src/javax.usb.properties"/>
+	        		<fileset file="src/MessagesBundle.properties"/>
 	        	</main>
 	        	<lib>
 	        		<fileset file="plugins/swt_win32.jar"/>
@@ -76,7 +79,8 @@
 	        <one-jar destfile="build/${product-name}_macosx64.jar" onejarmainclass="com.umotia.updater.Stm32Updater">
 	        	<main>
 	        		<fileset dir="build/classes"/>
-	        		<fileset file="jars/javax.usb.properties"/>
+	        		<fileset file="src/javax.usb.properties"/>
+	        		<fileset file="src/MessagesBundle.properties"/>
 	        	</main>
 	        	<lib>
 	        		<fileset file="plugins/swt_macosx.jar"/>

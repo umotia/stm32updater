@@ -52,7 +52,7 @@ public class DfuseFile {
 		if (dfu_num != 282) {
 			throw new Exception("Invalid file version: "+dfu_num);
 		}
-		String p = String.format("Version: %s; Vendor: 0x%04X; Product: 0x%04X", device,vendor,product);
+		String p = String.format("DFU File Version: %s; Vendor: 0x%04X; Product: 0x%04X", device,vendor,product);
 		Stm32Updater.LOGGER.info(p);
 	}
 	

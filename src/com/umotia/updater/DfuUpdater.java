@@ -73,10 +73,7 @@ public class DfuUpdater {
 		UsbHub hub = services.getRootUsbHub();
 		UsbDevice device = DfuUpdater.findDevice(hub, vendor, product);
 		if (device == null) {
-			throw new Exception(
-					String.format(
-							"USB device not found for Vendor = 0x%04X and Product = 0x%04X",
-							vendor, product));
+			throw new Exception("Device not found for specified update file");
 		}
 		return device;
 	}
